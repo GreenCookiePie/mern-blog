@@ -13,9 +13,11 @@ export const createPost = async (req, res) => {
 }
 
 export const getPosts = async (req, res) => {
-    // console.log(req.query)
+    console.log(req.query.name)
     try {
-        const posts = await Post.find(req.query)
+        const posts = await Post.find({ 
+            $or: [ {postId: req.query.postId}, {name: new RegExp(req.query.name, 'i')} ]
+        })
         // console.log(posts)
 
         res.status(200).json(posts)
