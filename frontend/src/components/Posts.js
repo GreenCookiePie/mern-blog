@@ -4,6 +4,8 @@ import axios from 'axios'
 import clsx from 'clsx'
 import { makeStyles, OutlinedInput, InputLabel, FormControl } from '@material-ui/core/'
 
+import { Post } from './Post'
+
 const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
@@ -75,14 +77,8 @@ export const Posts = () => {
 
             {posts.map((post) => {
                 return (
-                    <div key={post._id} style={{margin: "50px", backgroundColor:"#edfadc"}}>
-                        <ul>
-                            <li>PostId: {post.postId}</li>
-                            <li>ID: {post.id}</li>
-                            <li>Name: {post.name}</li>
-                            <li>Email: {post.email}</li>
-                            <li>Content:  {post.body}</li>
-                        </ul>
+                    <div key={post._id}>
+                        <Post postId={post.postId} name={post.name} email={post.email} body={post.body} />
                     </div>
                 ) 
             })}
