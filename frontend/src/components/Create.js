@@ -2,26 +2,8 @@ import React, { useState } from 'react'
 import axios from 'axios'
 
 import clsx from 'clsx'
-import { makeStyles, OutlinedInput, InputLabel, FormControl, Button } from '@material-ui/core/'
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      '& > *': {
-        margin: theme.spacing(1),
-      },
-    },
-    margin: {
-      margin: theme.spacing(1),
-    },
-    withoutLabel: {
-      marginTop: theme.spacing(3),
-    },
-    textField: {
-      width: '40ch',
-    },
-}))
+import { OutlinedInput, InputLabel, FormControl, Button } from '@material-ui/core/'
+import { useStyles } from './styles'
 
 export const Create = () => {
     const classes = useStyles()

@@ -1,26 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 import clsx from 'clsx'
-import { makeStyles, OutlinedInput, InputLabel, FormControl } from '@material-ui/core/'
+import { OutlinedInput, InputLabel, FormControl } from '@material-ui/core/'
+import { useStyles } from './styles'
 
 import { Post } from './Post'
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    margin: {
-      margin: theme.spacing(1),
-    },
-    withoutLabel: {
-      marginTop: theme.spacing(3),
-    },
-    textField: {
-      width: '25ch',
-    },
-}))
 
 export const Posts = () => {
     const classes = useStyles()
@@ -74,6 +59,7 @@ export const Posts = () => {
                     labelWidth={70}
                 />
             </FormControl>
+            <h6>Results Found: {posts.length}</h6>
 
             {posts.map((post) => {
                 return (

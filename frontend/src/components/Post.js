@@ -1,23 +1,8 @@
 import React from 'react'
 
-import {makeStyles, Typography, Card, CardActions, CardContent, Button} from '@material-ui/core/';
-
-const useStyles = makeStyles({
-    root: {
-      minWidth: 275,
-    },
-    bullet: {
-      display: 'inline-block',
-      margin: '0 6px',
-      transform: 'scale(0.8)',
-    },
-    title: {
-      fontSize: 14,
-    },
-    pos: {
-      marginBottom: 12,
-    },
-});
+import { Typography, Card, CardActions, CardContent, IconButton } from '@material-ui/core/'
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import { useStyles } from './styles'
 
 export const Post = (props) => {
     const classes = useStyles();
@@ -39,7 +24,9 @@ export const Post = (props) => {
             </CardContent>
 
             <CardActions>
-                <Button size="small">Edit</Button>
+                <IconButton color="primary">
+                    <AddCircleIcon />
+                </IconButton>
             </CardActions>
         </Card>
     )
