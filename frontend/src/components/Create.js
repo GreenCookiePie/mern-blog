@@ -1,7 +1,30 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 
+import clsx from 'clsx'
+import { makeStyles, OutlinedInput, InputLabel, FormControl, Button } from '@material-ui/core/'
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+    margin: {
+      margin: theme.spacing(1),
+    },
+    withoutLabel: {
+      marginTop: theme.spacing(3),
+    },
+    textField: {
+      width: '40ch',
+    },
+}))
+
 export const Create = () => {
+    const classes = useStyles()
     const initialState = {
         postId: '',
         name: '',
@@ -29,22 +52,42 @@ export const Create = () => {
 
     return (
         <div className='container'>
-            <h1>Posts</h1>
+            <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">PostID</InputLabel>
+                <OutlinedInput
+                    type="number"
+                    name="postId"
+                    onChange={handleChange}
+                    value={input.postId}
+                    labelWidth={70}
+                />
+            </FormControl>
+            <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">Name</InputLabel>
+                <OutlinedInput
+                    type="text"
+                    name="name"
+                    onChange={handleChange}
+                    value={input.name}
+                    labelWidth={70}
+                />
+            </FormControl>
+            <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">Email</InputLabel>
+                <OutlinedInput
+                    type="text"
+                    name="email"
+                    onChange={handleChange}
+                    value={input.email}
+                    labelWidth={70}
+                />
+            </FormControl>
             <form>
-                <div className="form-group">
-                    <input type="number" onChange={handleChange} value={input.postId} className="form-control" name="postId" placeholder="PostID" autoComplete="off"></input>
-                </div>
-                <div className="form-group">
-                    <input onChange={handleChange} value={input.name} className="form-control" name="name" placeholder="Name" autoComplete="off"></input>
-                </div>
-                <div className="form-group">
-                    <input onChange={handleChange} value={input.email} className="form-control" name="email" placeholder="Email" autoComplete="off"></input>
-                </div>
                 <div className="form-group">
                     <textarea onChange={handleChange} value={input.body} className="form-control" name="body" placeholder="Content" autoComplete="off"></textarea>
                 </div>
-                <button onClick={handleClick} className="btn btn-lg btn-info">Create</button>
             </form>
+            <Button variant="contained" color="primary" onClick={handleClick}>Create</Button>
         </div>
     )
 }

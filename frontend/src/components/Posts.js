@@ -1,11 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from '@material-ui/core/FormControl';
+import clsx from 'clsx'
+import { makeStyles, OutlinedInput, InputLabel, FormControl } from '@material-ui/core/'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,10 +18,10 @@ const useStyles = makeStyles((theme) => ({
     textField: {
       width: '25ch',
     },
-}));
+}))
 
 export const Posts = () => {
-    const classes = useStyles();
+    const classes = useStyles()
     const initialState = {
         postId: '',
         name: '',
@@ -75,9 +72,10 @@ export const Posts = () => {
                     labelWidth={70}
                 />
             </FormControl>
+
             {posts.map((post) => {
-                return(
-                    <div key={post._id} style={{margin: "50px", backgroundColor:"pink"}}>
+                return (
+                    <div key={post._id} style={{margin: "50px", backgroundColor:"#edfadc"}}>
                         <ul>
                             <li>PostId: {post.postId}</li>
                             <li>ID: {post.id}</li>
@@ -88,6 +86,7 @@ export const Posts = () => {
                     </div>
                 ) 
             })}
+
         </div>
     )
 }
