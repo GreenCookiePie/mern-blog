@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Typography, Card, CardActions, CardContent, IconButton } from '@material-ui/core/'
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import EditIcon from '@material-ui/icons/Edit'
 import { useStyles } from './styles'
 
+// import { Update } from './Update'
+
 export const Post = (props) => {
+    const [open, setOpen] = useState(false)
+
+    const dialogHandle = () => {
+        setOpen(!open)
+        console.log(open)
+    }
+
     const classes = useStyles();
     return (
         <Card className={classes.root}>
@@ -24,10 +33,11 @@ export const Post = (props) => {
             </CardContent>
 
             <CardActions>
-                <IconButton color="primary">
-                    <AddCircleIcon />
+                <IconButton color="primary" onClick={dialogHandle}>
+                    <EditIcon />
                 </IconButton>
             </CardActions>
+            {/* <Update open={open} /> */}
         </Card>
     )
 }
