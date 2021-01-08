@@ -1,9 +1,30 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 
-import TextField from '@material-ui/core/TextField';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from '@material-ui/core/FormControl';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    margin: {
+      margin: theme.spacing(1),
+    },
+    withoutLabel: {
+      marginTop: theme.spacing(3),
+    },
+    textField: {
+      width: '25ch',
+    },
+}));
 
 export const Posts = () => {
+    const classes = useStyles();
     const initialState = {
         postId: '',
         name: '',
@@ -34,13 +55,26 @@ export const Posts = () => {
 
     return (
         <div className='container'>
-            <input id="outlined-basic" variant="outlined" type="number" onChange={handleChange} value={search.postId} className="form-control" name="postId" placeholder="PostID" autoComplete="off" />
-            <input id="outlined-basic" variant="outlined" onChange={handleChange} value={search.name} className="form-control" name="name" placeholder="Name" autoComplete="off" />
-            <form noValidate autoComplete="off">
-                <TextField id="standard-basic" label="Standard" />
-                <TextField id="filled-basic" label="Filled" variant="filled" />
-                <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-            </form>
+            <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">PostID</InputLabel>
+                <OutlinedInput
+                    type="number"
+                    name="postId"
+                    onChange={handleChange}
+                    value={search.postId}
+                    labelWidth={70}
+                />
+            </FormControl>
+            <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">Name</InputLabel>
+                <OutlinedInput
+                    type="text"
+                    name="name"
+                    onChange={handleChange}
+                    value={search.name}
+                    labelWidth={70}
+                />
+            </FormControl>
             {posts.map((post) => {
                 return(
                     <div key={post._id} style={{margin: "50px", backgroundColor:"pink"}}>

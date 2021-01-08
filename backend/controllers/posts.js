@@ -39,5 +39,12 @@ export const getPosts = async (req, res) => {
 }
 
 export const updatePost = async (req, res) => {
-    
+    console.log(req.params._id, req.body)
+    try {
+        const update = await Post.findByIdAndUpdate(req.params._id, req.body)
+        res.status(202).json(update)
+    }
+    catch (error) {
+        res.status(407).json({message: error.message})
+    }
 }
