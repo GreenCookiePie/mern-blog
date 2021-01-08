@@ -13,13 +13,24 @@ export const createPost = async (req, res) => {
 }
 
 export const getPosts = async (req, res) => {
-    console.log(req.query.name)
+    // console.log(req.query)
     try {
-        const posts = await Post.find({ 
-            $or: [ {postId: req.query.postId}, {name: new RegExp(req.query.name, 'i')} ]
-        })
-        // console.log(posts)
-
+        if (Number.isNaN(parseInt(req.query.postId))) {
+            var posts = await Post.aggregate([
+                {$match: 
+                    {name: new RegExp(req.query.name, 'i')}
+                }
+            ]) 
+        }
+        else {
+            var posts = await Post.aggregate([
+                {$match: {
+                    $and: [
+                        {postId: parseInt(req.query.postId), name: new RegExp(req.query.name, 'i')}
+                    ],
+                }}
+            ]) 
+        }
         res.status(200).json(posts)
     }
     catch (error) {
@@ -27,3 +38,6 @@ export const getPosts = async (req, res) => {
     }
 }
 
+export const updatePost = async (req, res) => {
+    
+}
