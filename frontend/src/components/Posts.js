@@ -6,6 +6,7 @@ import { OutlinedInput, InputLabel, FormControl } from '@material-ui/core/'
 import { useStyles } from './styles'
 
 import { Post } from './Post'
+// import { Post } from './Test'
 
 export const Posts = () => {
     const classes = useStyles()
@@ -26,7 +27,7 @@ export const Posts = () => {
     }
 
     useEffect(() => {
-        console.log(search)
+        // console.log(search)
         axios.get(`http://localhost:5000/get?postId=${search.postId}&name=${search.name}`)
             .then(res => {
                 console.log(res.data)
@@ -64,7 +65,7 @@ export const Posts = () => {
             {posts.map((post) => {
                 return (
                     <div key={post._id}>
-                        <Post postId={post.postId} name={post.name} email={post.email} body={post.body} />
+                        <Post post={post} />
                     </div>
                 ) 
             })}

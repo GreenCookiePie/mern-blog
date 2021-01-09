@@ -1,58 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios'
 
-import { useStyles } from './styles'
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, FormControlLabel } from '@material-ui/core/'
+import { Dialog, DialogActions, DialogContent, Button } from '@material-ui/core/'
 
-export const Update = (props) => {
-    const classes = useStyles()
+export const Update = ({ dialog, post }) => {
+    const [update, setUpdate] = useState(post)
+    const [open, setOpen] = useState(dialog)
+    console.log(open)
+
+    const handleChange = (e) => {
+        setUpdate(prev => {
+            return ({
+                ...prev, 
+                [e.target.name]: e.target.value
+            })
+        })
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        const URL = `http://localhost:5000/create/${post._id}` 
+        axios.put(URL, update)
+    }
+
+    const handleDialog = () => {
+        setOpen(!open)
+        // console.log(open)
+    } 
 
     return (
-        <Dialog
-        fullWidth={fullWidth}
-        maxWidth={maxWidth}
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="max-width-dialog-title"
-      >
-        <DialogTitle id="max-width-dialog-title">Optional sizes</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            You can set my maximum width and whether to adapt or not.
-          </DialogContentText>
-          <form className={classes.form} noValidate>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="max-width">maxWidth</InputLabel>
-              <Select
-                autoFocus
-                value={maxWidth}
-                onChange={handleMaxWidthChange}
-                inputProps={{
-                  name: "max-width",
-                  id: "max-width"
-                }}
-              >
-                <MenuItem value={false}>false</MenuItem>
-                <MenuItem value="xs">xs</MenuItem>
-                <MenuItem value="sm">sm</MenuItem>
-                <MenuItem value="md">md</MenuItem>
-                <MenuItem value="lg">lg</MenuItem>
-                <MenuItem value="xl">xl</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControlLabel
-              className={classes.formControlLabel}
-              control={
-                <Switch checked={fullWidth} onChange={handleFullWidthChange} />
-              }
-              label="Full width"
-            />
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Close
-          </Button>
-        </DialogActions>
+      <Dialog open={open} onClose={handleDialog} aria-labelledby="form-dialog-title">
+          <DialogContent>
+              <textarea className="form-control" onChange={handleChange} value={update.body} name="body" placeholder="Content" autoComplete="off"></textarea>
+          </DialogContent>
+          <DialogActions>
+              <Button onClick={handleSubmit} color="primary">Submit</Button>
+              <Button onClick={handleDialog} color="secondary">Close</Button>
+          </DialogActions>
       </Dialog>
     )
 }
