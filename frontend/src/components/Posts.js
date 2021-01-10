@@ -10,6 +10,8 @@ import { Post } from './Post'
 
 export const Posts = () => {
     const classes = useStyles()
+
+    // states
     const initialState = {
         postId: '',
         name: '',
@@ -17,6 +19,7 @@ export const Posts = () => {
     const [search, setSearch] = useState(initialState)
     const [posts, setPosts] = useState([])
 
+    // functions
     const handleChange = (e) => {
         setSearch(prev => {
             return ({
@@ -25,7 +28,6 @@ export const Posts = () => {
             })
         })
     }
-
     useEffect(() => {
         // console.log(search)
         axios.get(`http://localhost:5000/get?postId=${search.postId}&name=${search.name}`)
