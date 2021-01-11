@@ -34,6 +34,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     dialogTextField: {
         margin: '20px',
-        width: '350px'
+        width: '350px',
+        height: '200px',
     },
 }))

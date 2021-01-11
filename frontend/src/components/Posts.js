@@ -6,7 +6,7 @@ import { OutlinedInput, InputLabel, FormControl } from '@material-ui/core/'
 import { useStyles } from './styles'
 
 import { Post } from './Post'
-// import { Post } from './Test'
+// import { Post } from './Post-old'
 
 export const Posts = () => {
     const classes = useStyles()
@@ -28,6 +28,7 @@ export const Posts = () => {
             })
         })
     }
+    
     useEffect(() => {
         // console.log(search)
         axios.get(`http://localhost:5000/get?postId=${search.postId}&name=${search.name}`)

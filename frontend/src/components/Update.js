@@ -1,14 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, } from 'react'
 import axios from 'axios'
 
-import { Dialog, DialogActions, DialogContent, Button } from '@material-ui/core/'
+import { Typography, Dialog, DialogActions, DialogContent, Button } from '@material-ui/core/'
+import { useStyles } from './styles'
 
-export const Update = ({ dialog, post }) => {
+export const Update = ({ dialog, handleDialog, post, handlePost }) => {
+    const classes = useStyles()
+
+    // states
     const [update, setUpdate] = useState(post)
-    const [open, setOpen] = useState(dialog)
-    console.log(open)
 
-    const handleChange = (e) => {
+    // functions
+    const handleUpdate = (e) => {
         setUpdate(prev => {
             return ({
                 ...prev, 
@@ -20,24 +23,38 @@ export const Update = ({ dialog, post }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        const URL = `http://localhost:5000/create/${post._id}` 
+        const URL = `http://localhost:5000/update/${update._id}`
         axios.put(URL, update)
+
+        handlePost(update)
+        handleDialog()
     }
 
-    const handleDialog = () => {
-        setOpen(!open)
-        // console.log(open)
-    } 
-
     return (
-      <Dialog open={open} onClose={handleDialog} aria-labelledby="form-dialog-title">
-          <DialogContent>
-              <textarea className="form-control" onChange={handleChange} value={update.body} name="body" placeholder="Content" autoComplete="off"></textarea>
-          </DialogContent>
-          <DialogActions>
-              <Button onClick={handleSubmit} color="primary">Submit</Button>
-              <Button onClick={handleDialog} color="secondary">Close</Button>
-          </DialogActions>
-      </Dialog>
+        <Dialog open={dialog} onClose={handleDialog} aria-labelledby="form-dialog-title">
+            <DialogContent>
+                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                    POSTID: {post.postId}
+                </Typography>
+                <Typography variant="h5" component="h2">
+                    NAME: {post.name}
+                </Typography>
+                <Typography className={classes.pos} color="textSecondary">
+                    EMAIL: {post.email}
+                </Typography>
+            </DialogContent>
+            <textarea 
+                className={classes.dialogTextField} 
+                onChange={handleUpdate} 
+                value={update.body} 
+                name="body" 
+                placeholder="Content" 
+                autoComplete="off" 
+            />
+            <DialogActions>
+                <Button onClick={handleSubmit} color="primary">Submit</Button>
+                <Button onClick={handleDialog} color="secondary">Close</Button>
+            </DialogActions>
+        </Dialog>
     )
 }
