@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from "react-redux";
 import axios from 'axios'
 
 import clsx from 'clsx'
@@ -6,20 +7,22 @@ import { OutlinedInput, InputLabel, FormControl } from '@material-ui/core/'
 import { useStyles } from './styles'
 
 import { Post } from './Post'
-// import { Post } from './Post-old'
 
 export const Posts = () => {
+    // styles
     const classes = useStyles()
 
-    // states
+    // redux
+    const dispatch = useDispatch()
+    const posts = useSelector(state => state.postsR)
+
+    // SEARCH
     const initialState = {
         postId: '',
         name: '',
     }
     const [search, setSearch] = useState(initialState)
-    const [posts, setPosts] = useState([])
 
-    // functions
     const handleChange = (e) => {
         setSearch(prev => {
             return ({
@@ -30,11 +33,10 @@ export const Posts = () => {
     }
     
     useEffect(() => {
-        // console.log(search)
         axios.get(`http://localhost:5000/get?postId=${search.postId}&name=${search.name}`)
             .then(res => {
                 console.log(res.data)
-                setPosts(res.data)
+                dispatch({type: 'GET', payload: res.data})
             })
             .catch(err => {
                 console.log(err)
