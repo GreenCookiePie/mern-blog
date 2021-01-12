@@ -7,6 +7,8 @@ import { useStyles } from './styles'
 
 export const Create = () => {
     const classes = useStyles()
+
+    // states
     const initialState = {
         postId: '',
         name: '',
@@ -15,6 +17,7 @@ export const Create = () => {
     }
     const [input, setInput] = useState(initialState)
 
+    // functions
     const handleChange = (e) => {
         setInput(prev => {
             return ({
@@ -23,7 +26,7 @@ export const Create = () => {
             })
         })
     }
-
+    
     const handleClick = (e) => {
         e.preventDefault()
 

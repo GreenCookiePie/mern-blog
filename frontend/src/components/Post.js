@@ -4,40 +4,47 @@ import { Typography, Card, CardActions, CardContent, IconButton } from '@materia
 import EditIcon from '@material-ui/icons/Edit'
 import { useStyles } from './styles'
 
-// import { Update } from './Update'
+import { Update } from './Update'
 
 export const Post = (props) => {
-    const [open, setOpen] = useState(false)
+    const classes = useStyles()
 
-    const dialogHandle = () => {
+    // states
+    const [open, setOpen] = useState(false)
+    const [post, setPost] = useState(props.post)
+    
+    // functions
+    const handleDialog = () => {
         setOpen(!open)
-        console.log(open)
     }
 
-    const classes = useStyles();
+    const handlePost = (newPost) => {
+        setPost(newPost)
+    }
+
     return (
         <Card className={classes.root}>
             <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    POSTID: {props.postId}
+                    POSTID: {post.postId}
                 </Typography>
                 <Typography variant="h5" component="h2">
-                    NAME: {props.name}
+                    NAME: {post.name}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                    EMAIL: {props.email}
+                    EMAIL: {post.email}
                 </Typography>
                 <Typography variant="body2" component="p">
-                    CONENT: {props.body}
+                    CONENT: {post.body}
                 </Typography>
             </CardContent>
 
             <CardActions>
-                <IconButton color="primary" onClick={dialogHandle}>
+                <IconButton color="primary" onClick={handleDialog}>
                     <EditIcon />
                 </IconButton>
+                <Update dialog={open} handleDialog={handleDialog} post={post} handlePost={handlePost} />
             </CardActions>
-            {/* <Update open={open} /> */}
         </Card>
     )
 }
