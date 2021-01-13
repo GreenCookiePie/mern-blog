@@ -1,12 +1,16 @@
 import React, { useState, } from 'react'
+import { useDispatch } from "react-redux"
 import axios from 'axios'
 
 import { Typography, Dialog, DialogActions, DialogContent, Button } from '@material-ui/core/'
 
 import { useStyles } from '../styles'
 
-export const Update = ({ dialog, handleDialog, post, handlePost }) => {
+export const Update = ({ dialog, handleDialog, post }) => {
     const classes = useStyles()
+
+    // redux
+    const dispatch = useDispatch()
 
     // states
     const [update, setUpdate] = useState(post)
@@ -24,10 +28,14 @@ export const Update = ({ dialog, handleDialog, post, handlePost }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        const URL = `http://localhost:5000/update?_id=${update._id}`
-        axios.put(URL, update)
+        axios.put(`http://localhost:5000/update?_id=${update._id}`, update)
+            .then(res => {
+                dispatch({type: 'UPDATE', update: update})
+            })
+            .catch(err => {
+                console.log(err)
+            })
 
-        handlePost(update)
         handleDialog()
     }
 

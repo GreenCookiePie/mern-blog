@@ -41,7 +41,7 @@ export const Posts = () => {
             .catch(err => {
                 console.log(err)
             })
-    }, [search])
+    }, [search, posts])
 
     return (
         <div className='container'>

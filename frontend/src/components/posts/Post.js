@@ -1,25 +1,36 @@
 import React, { useState } from 'react'
+import { useDispatch } from "react-redux"
+import axios from 'axios'
 
 import { Typography, Card, CardActions, CardContent, IconButton } from '@material-ui/core/'
 import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/Delete'
 
-import { useStyles } from './styles'
+import { useStyles } from '../styles'
 import { Update } from './Update'
 
-export const Post = (props) => {
+export const Post = ({ post }) => {
     const classes = useStyles()
 
+    // redux
+    const dispatch = useDispatch()
+    
     // states
     const [open, setOpen] = useState(false)
-    const [post, setPost] = useState(props.post)
-    
+
     // functions
-    const handleDialog = () => {
-        setOpen(!open)
+    const handleDelete = () => {
+        axios.delete(`http://localhost:5000/delete?_id=${post._id}`)
+            .then(res => {
+                dispatch({type: 'DELETE', _id: post._id})
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
-    const handlePost = (newPost) => {
-        setPost(newPost)
+    const handleDialog = () => {
+        setOpen(!open)
     }
 
     return (
@@ -43,7 +54,10 @@ export const Post = (props) => {
                 <IconButton color="primary" onClick={handleDialog}>
                     <EditIcon />
                 </IconButton>
-                <Update dialog={open} handleDialog={handleDialog} post={post} handlePost={handlePost} />
+                <IconButton color="secondary" onClick={handleDelete}>
+                    <DeleteIcon />
+                </IconButton>
+                <Update dialog={open} handleDialog={handleDialog} post={post} />
             </CardActions>
         </Card>
     )
