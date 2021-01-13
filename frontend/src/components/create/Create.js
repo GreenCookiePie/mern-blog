@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useDispatch } from "react-redux"
 import axios from 'axios'
 
 import clsx from 'clsx'
@@ -9,6 +10,8 @@ import { useStyles } from '../styles'
 export const Create = () => {
     const classes = useStyles()
     
+    // redux
+    const dispatch = useDispatch()
 
     // states
     const initialState = {
@@ -29,11 +32,18 @@ export const Create = () => {
         })
     }
     
-    const handleClick = (e) => {
+    const handleCreate = (e) => {
         e.preventDefault()
 
-        console.log(input)
+        // console.log(input)
         axios.post('http://localhost:5000/create', input)
+            .then(res => {
+                dispatch({type: 'CREATE', create: input})
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
         setInput(initialState)
     }
 
@@ -74,7 +84,7 @@ export const Create = () => {
                     <textarea onChange={handleChange} value={input.body} className="form-control" name="body" placeholder="Content" autoComplete="off"></textarea>
                 </div>
             </form>
-            <Button variant="contained" color="primary" onClick={handleClick}>Create</Button>
+            <Button variant="contained" color="primary" onClick={handleCreate}>Create</Button>
         </div>
     )
 }

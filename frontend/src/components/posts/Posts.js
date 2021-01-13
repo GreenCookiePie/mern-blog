@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios'
 
 import clsx from 'clsx'
@@ -35,8 +35,8 @@ export const Posts = () => {
     useEffect(() => {
         axios.get(`http://localhost:5000/get?postId=${search.postId}&name=${search.name}`)
             .then(res => {
-                console.log(res.data)
-                dispatch({type: 'GET', payload: res.data})
+                // console.log(res.data)
+                dispatch({type: 'GET', posts: res.data})
             })
             .catch(err => {
                 console.log(err)
