@@ -3,7 +3,8 @@ import axios from 'axios'
 
 import clsx from 'clsx'
 import { OutlinedInput, InputLabel, FormControl, Button } from '@material-ui/core/'
-import { useStyles } from './styles'
+
+import { useStyles } from '../styles'
 
 export const Create = () => {
     const classes = useStyles()

@@ -2,9 +2,9 @@ import React from 'react'
 import {BrowserRouter, Route} from 'react-router-dom'
 
 import {Navbar} from './components/NavBar'
-import {Home} from './components/Home'
-import {Posts} from './components/Posts'
-import {Create} from './components/Create'
+import {Home} from './components/home/Home'
+import {Posts} from './components/posts/Posts'
+import {Create} from './components/create/Create'
 
 function App() {
   return (

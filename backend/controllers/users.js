@@ -1,6 +1,6 @@
-import User from '../models/userModel.js'
+const User = require('../models/userModel.js')
 
-export const createUser = async (req, res) => {
+exports.createUser = async (req, res) => {
     // console.log(req.body)
     const newUser = new User(req.body)
     try {
@@ -12,7 +12,7 @@ export const createUser = async (req, res) => {
     }
 }
 
-export const getUser = async (req, res) => {
+exports.getUser = async (req, res) => {
     // console.log(req.params, req.query)
     try {
         await User.findOne(req.query.email)

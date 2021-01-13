@@ -1,7 +1,7 @@
-import express from 'express'
+const express = require('express')
 
-// import { createUser, getUser } from './controllers/users.js'
-import { createPost, getPosts, updatePost } from './controllers/posts.js'
+// const { createUser, getUser } = require('./controllers/users')
+const { createPost, getPosts, updatePost, deletePost } = require('./controllers/posts')
 
 const router = express.Router()
 // user 
@@ -10,6 +10,7 @@ const router = express.Router()
 // post
 router.post('/create', createPost)
 router.get('/get', getPosts)
-router.put('/update/:_id', updatePost)
+router.put('/update', updatePost)
+router.delete('/delete', deletePost)
 
-export default router
+module.exports = router

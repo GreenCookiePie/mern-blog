@@ -4,8 +4,8 @@ import axios from 'axios'
 
 import clsx from 'clsx'
 import { OutlinedInput, InputLabel, FormControl } from '@material-ui/core/'
-import { useStyles } from './styles'
 
+import { useStyles } from '../styles'
 import { Post } from './Post'
 
 export const Posts = () => {

@@ -2,7 +2,8 @@ import React, { useState, } from 'react'
 import axios from 'axios'
 
 import { Typography, Dialog, DialogActions, DialogContent, Button } from '@material-ui/core/'
-import { useStyles } from './styles'
+
+import { useStyles } from '../styles'
 
 export const Update = ({ dialog, handleDialog, post, handlePost }) => {
     const classes = useStyles()
@@ -23,7 +24,7 @@ export const Update = ({ dialog, handleDialog, post, handlePost }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        const URL = `http://localhost:5000/update/${update._id}`
+        const URL = `http://localhost:5000/update?_id=${update._id}`
         axios.put(URL, update)
 
         handlePost(update)

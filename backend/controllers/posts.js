@@ -1,6 +1,6 @@
-import Post from '../models/postModel.js'
+const Post = require('../models/postModel.js')
 
-export const createPost = async (req, res) => {
+exports.createPost = async (req, res) => {
     // console.log(req.body)
     const newPost = new Post(req.body)
     try {
@@ -12,7 +12,7 @@ export const createPost = async (req, res) => {
     }
 }
 
-export const getPosts = async (req, res) => {
+exports.getPosts = async (req, res) => {
     // console.log(req.query)
     try {
         if (Number.isNaN(parseInt(req.query.postId))) {
@@ -38,11 +38,22 @@ export const getPosts = async (req, res) => {
     }
 }
 
-export const updatePost = async (req, res) => {
-    // console.log(req.params._id, req.body)
+exports.updatePost = async (req, res) => {
+    // console.log(req.query._id, req.body)
     try {
-        const update = await Post.findByIdAndUpdate(req.params._id, req.body)
+        const update = await Post.findByIdAndUpdate(req.query._id, req.body)
         res.status(202).json(update)
+    }
+    catch (error) {
+        res.status(407).json({message: error.message})
+    }
+}
+
+exports.deletePost = async (req, res) => {
+    // console.log(req.query)
+    try {
+        const update = await Post.deleteOne(req.query)
+        res.status(200).json(update)
     }
     catch (error) {
         res.status(407).json({message: error.message})

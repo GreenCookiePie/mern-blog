@@ -1,9 +1,9 @@
-import express from 'express'
-import bodyParser from 'body-parser'
-import mongoose from 'mongoose'
-import cors from 'cors'
+const express = require('express')
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+const cors = require('cors')
 
-import router from './routes.js'
+const router = require('./routes.js')
 
 const app = new express()
 app.use(bodyParser.json({limit: "30mb", extended: true}))

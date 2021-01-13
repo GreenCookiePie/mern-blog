@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 
 import { Typography, Card, CardActions, CardContent, IconButton } from '@material-ui/core/'
 import EditIcon from '@material-ui/icons/Edit'
-import { useStyles } from './styles'
 
+import { useStyles } from './styles'
 import { Update } from './Update'
 
 export const Post = (props) => {
