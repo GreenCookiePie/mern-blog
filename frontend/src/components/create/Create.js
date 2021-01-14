@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from "react-redux"
+// import { useDispatch } from "react-redux"
 import axios from 'axios'
 
 import clsx from 'clsx'
@@ -12,7 +12,7 @@ export const Create = () => {
     const classes = useStyles()
     
     // redux
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
     // CREATE
     const initialState = {
@@ -37,12 +37,12 @@ export const Create = () => {
 
         // console.log(input)
         axios.post('http://localhost:5000/create', input)
-            .then(res => {
-                dispatch({type: 'CREATE', create: input})
-            })
-            .catch(err => {
-                console.log(err)
-            })
+            // .then(res => {
+            //     dispatch({type: 'CREATE', create: input})
+            // })
+            // .catch(err => {
+            //     console.log(err)
+            // })
 
         setInput(initialState)
     }

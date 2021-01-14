@@ -22,7 +22,7 @@ export const Posts = () => {
         name: '',
     }
     const [search, setSearch] = useState(initialState)
-    
+
     const handleChange = (e) => {
         setSearch(prev => {
             return ({
@@ -35,7 +35,7 @@ export const Posts = () => {
     useEffect(() => {
         axios.get(`http://localhost:5000/get?postId=${search.postId}&name=${search.name}`)
             .then(res => {
-                // console.log(res.data)
+                // console.log(typeof res.data)
                 dispatch({type: 'GET', posts: res.data})
             })
             .catch(err => {
