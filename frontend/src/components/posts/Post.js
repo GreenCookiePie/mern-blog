@@ -26,7 +26,7 @@ export const Post = ({ post }) => {
 
     // DELETE
     const handleDelete = () => {
-        axios.delete(`http://localhost:5000/delete?_id=${post._id}`)
+        axios.delete(`http://localhost:5000/delete/${post._id}`)
             .then(res => {
                 dispatch({type: 'DELETE', delete: post})
             })

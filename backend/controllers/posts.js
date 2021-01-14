@@ -39,9 +39,9 @@ exports.getPosts = async (req, res) => {
 }
 
 exports.updatePost = async (req, res) => {
-    // console.log(req.query._id, req.body)
+    // console.log(req.params, req.body)
     try {
-        const update = await Post.findByIdAndUpdate(req.query._id, req.body)
+        const update = await Post.findByIdAndUpdate(req.params._id, req.body)
         res.status(202).json(update)
     }
     catch (error) {
@@ -50,10 +50,10 @@ exports.updatePost = async (req, res) => {
 }
 
 exports.deletePost = async (req, res) => {
-    // console.log(req.query)
+    // console.log(req.params)
     try {
-        const update = await Post.deleteOne(req.query)
-        res.status(200).json(update)
+        await Post.deleteOne(req.params)
+        res.status(200).json(req.params)
     }
     catch (error) {
         res.status(407).json({message: error.message})

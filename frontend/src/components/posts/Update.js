@@ -29,7 +29,7 @@ export const Update = ({ dialog, handleDialog, post }) => {
         e.preventDefault()
 
         // console.log(update)
-        axios.put(`http://localhost:5000/update?_id=${update._id}`, update)
+        axios.put(`http://localhost:5000/update/${update._id}`, update)
             .then(res => {
                 dispatch({type: 'UPDATE', update: update})
             })
