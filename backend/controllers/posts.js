@@ -2,10 +2,12 @@ const Post = require('../models/postModel.js')
 
 exports.createPost = async (req, res) => {
     // console.log(req.body)
-    const newPost = new Post(req.body)
     try {
-        await newPost.save()
+        // const newPost = new Post(req.body)
+        // await newPost.save()
+        const newPost = await Post.create(req.body)
         res.status(201).json(newPost)
+        console.log(res.statusCode)
     }
     catch (error) {
         res.status(409).json({message: error.message})
