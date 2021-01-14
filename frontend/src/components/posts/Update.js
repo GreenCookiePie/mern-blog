@@ -7,15 +7,15 @@ import { Typography, Dialog, DialogActions, DialogContent, Button } from '@mater
 import { useStyles } from '../styles'
 
 export const Update = ({ dialog, handleDialog, post }) => {
+    // styles
     const classes = useStyles()
 
     // redux
     const dispatch = useDispatch()
 
-    // states
+    // UPDATE
     const [update, setUpdate] = useState(post)
 
-    // functions
     const handleUpdate = (e) => {
         setUpdate(prev => {
             return ({
@@ -28,6 +28,7 @@ export const Update = ({ dialog, handleDialog, post }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
+        // console.log(update)
         axios.put(`http://localhost:5000/update?_id=${update._id}`, update)
             .then(res => {
                 dispatch({type: 'UPDATE', update: update})

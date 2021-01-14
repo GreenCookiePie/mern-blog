@@ -10,15 +10,21 @@ import { useStyles } from '../styles'
 import { Update } from './Update'
 
 export const Post = ({ post }) => {
+    // styles
     const classes = useStyles()
 
     // redux
     const dispatch = useDispatch()
     
-    // states
+    // OPEN DIALOG
     const [open, setOpen] = useState(false)
 
-    // functions
+    const handleDialog = () => {
+        setOpen(!open)
+    }
+
+
+    // DELETE
     const handleDelete = () => {
         axios.delete(`http://localhost:5000/delete?_id=${post._id}`)
             .then(res => {
@@ -27,10 +33,6 @@ export const Post = ({ post }) => {
             .catch(err => {
                 console.log(err)
             })
-    }
-
-    const handleDialog = () => {
-        setOpen(!open)
     }
 
     return (

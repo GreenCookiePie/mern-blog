@@ -22,7 +22,7 @@ export const Posts = () => {
         name: '',
     }
     const [search, setSearch] = useState(initialState)
-
+    
     const handleChange = (e) => {
         setSearch(prev => {
             return ({

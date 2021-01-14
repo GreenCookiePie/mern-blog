@@ -8,12 +8,13 @@ import { OutlinedInput, InputLabel, FormControl, Button } from '@material-ui/cor
 import { useStyles } from '../styles'
 
 export const Create = () => {
+    // styles
     const classes = useStyles()
     
     // redux
     const dispatch = useDispatch()
 
-    // states
+    // CREATE
     const initialState = {
         postId: '',
         name: '',
@@ -22,7 +23,6 @@ export const Create = () => {
     }
     const [input, setInput] = useState(initialState)
 
-    // functions
     const handleChange = (e) => {
         setInput(prev => {
             return ({
