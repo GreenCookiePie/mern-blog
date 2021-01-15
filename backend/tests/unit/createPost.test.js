@@ -1,33 +1,36 @@
-// const request = require('supertest')
+// test server
+const app = require('../../server/server')
 
-// const postModel = require('../../models/postModel.js')
-// const { createPost, getPosts, updatePost, deletePost } = require('../../controllers/posts.js')
+const mongoose = require('mongoose')
 
-// describe('createPost', () => {
-//     beforeEach(() => {
-//         req.body = dataMocks
-//     })
+//const { mongoTest } = require('../../server/database')
+//const PORT = process.env.PORT || 6000
+//mongoTest()
+    // .then(() => app.listen(PORT, () => console.log(`Server runnning on PORT: ${PORT}`)))
+    //.catch((error) => console.logmongoose.set('useFindAndModify', false)(error.message))
 
-//     it('should be a function', () => {
-//         expect(typeof createPost).toBe('function')
-//     })
+// tests
+const request = require('supertest')
 
-//     it('should call postModel.create', () => {
-//         createPost(req, res)
-//         expect(postModel.create).toBeCalledWith(dataMocks)
-//     })
+describe('GET /get', () => {
+    beforeEach(async() => {
+        await await mongoose.connect('mongodb://localhost/mern-blog-test', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
+    })
 
-//     it('should res 201 status code', () => {
-//         createPost(req, res)
-//         expect(res.statusCode).toEqual(201)
-//         console.log(res)
-//         expect(res._isEndCalled()).toBeTruthy()
-//     })
+    afterEach(async() => {
+        await mongoose.disconnect();
+    })
 
-//     it('should res json body', () => {
-//         postModel.create.mockReturnValue(dataMocks)
-//         createPost(req, res)
-//         expect(res._getJSONData()).toBe(dataMocks)
-//     })
-// })
+    it('res with json', async () => {
+        return request(app)
+            .get('/get')
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then(response => {
+                expect(response.body.length).toBe(500)
+            })
+    })
+})
+
 

@@ -15,7 +15,7 @@ exports.createPost = async (req, res) => {
 }
 
 exports.getPosts = async (req, res) => {
-    // console.log(req.query)
+    //console.log(req.query)
     try {
         if (Number.isNaN(parseInt(req.query.postId))) {
             var posts = await Post.aggregate([
