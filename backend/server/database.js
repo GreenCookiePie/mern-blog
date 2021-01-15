@@ -1,9 +1,7 @@
 const mongoose = require('mongoose')
 
-exports.mongoIndex = async () => {
-    return await mongoose.connect('mongodb://localhost/mern-blog', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
-}
+exports.mongoIndex = async () => await mongoose.connect('mongodb://localhost/mern-blog', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
 
-exports.mongoTest = async () => {
-    return await mongoose.connect('mongodb://localhost/mern-blog-test', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
-}
+const connect = async () => await mongoose.connect('mongodb://localhost/mern-blog-test', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
+const disconnect = async () => await mongoose.disconnect()
+exports.mongoTest = {connect, disconnect}

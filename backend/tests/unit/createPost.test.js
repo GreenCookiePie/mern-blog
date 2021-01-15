@@ -1,36 +1,50 @@
 // test server
 const app = require('../../server/server')
-
-const mongoose = require('mongoose')
-
-//const { mongoTest } = require('../../server/database')
-//const PORT = process.env.PORT || 6000
-//mongoTest()
-    // .then(() => app.listen(PORT, () => console.log(`Server runnning on PORT: ${PORT}`)))
-    //.catch((error) => console.logmongoose.set('useFindAndModify', false)(error.message))
+const { mongoTest } = require('../../server/database')
 
 // tests
 const request = require('supertest')
 
-describe('GET /get', () => {
+describe('GET posts /get', () => {
     beforeEach(async() => {
-        await await mongoose.connect('mongodb://localhost/mern-blog-test', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
+        await mongoTest.connect();
     })
-
     afterEach(async() => {
-        await mongoose.disconnect();
+        await mongoTest.disconnect();
     })
 
-    it('res with json', async () => {
+    it ('res  json', async () => {
         return request(app)
             .get('/get')
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(200)
-            .then(response => {
-                expect(response.body.length).toBe(500)
+            .then(res => {
+                expect(res.body.length).toBeGreaterThan(0)
             })
     })
 })
 
+describe('UPDATE post /update', () => {
+    beforeEach(async() => {
+        await mongoTest.connect();
+    })
+    afterEach(async() => {
+        await mongoTest.disconnect();
+    })
+
+    it ('res updated json', async () => {
+        const update = {"body": "new test-body 12345"}
+        return request(app)
+            .put('/update/5fffadd7080b2316cc4a4228')
+            .send(update)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(201)
+            .then(res => {
+                console.log(res)
+                expect(res.body).toBe(update.body)
+            })
+    })
+})
 
