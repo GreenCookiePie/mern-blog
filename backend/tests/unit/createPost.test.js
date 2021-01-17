@@ -4,7 +4,7 @@ const { mongoTest } = require('../../server/database')
 
 // tests
 const request = require('supertest')
-describe('UPDATE post /update', () => {
+describe('CREATE post /create', () => {
     beforeEach(async() => {
         await mongoTest.connect();
     })
@@ -12,19 +12,23 @@ describe('UPDATE post /update', () => {
         await mongoTest.disconnect();
     })
 
-    it ('res updated json', async () => {
-        const _id = '60044ff3ccffad264c8439b8'
-        const urlParams = `/update/${_id}`
-        const update = {"body": "new test-body 12345"}
+    it ('res created post in json', async () => {
+        const newPost = {
+            "postId": 1,
+            "name": "test-name",
+            "email": "test@email",
+            "body": "test-body"
+        }
+        const urlParams = '/create'
         return request(app)
-            .put(urlParams)
-            .send(update)
+            .post(urlParams)
+            .send(newPost)
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(201)
             .then(res => {
                 // console.log(res)
-                expect(res.body.body).toBe(update.body)
+                expect(res.body.email).toBe(newPost.email)
             })
     })
 })
