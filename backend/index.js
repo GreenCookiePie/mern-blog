@@ -1,4 +1,3 @@
-// app
 const app = require('./server/server')
 
 // main server
