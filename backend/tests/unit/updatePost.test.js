@@ -13,18 +13,36 @@ describe('UPDATE post /update', () => {
     })
 
     it ('res updated json', async () => {
-        const _id = '60044ff3ccffad264c8439b8'
-        const urlParams = `/update/${_id}`
-        const update = {"body": "new test-body 12345"}
-        return request(app)
-            .put(urlParams)
+        // mock data
+        const mockPost = {
+            "postId": 900,
+            "name": "update-test",
+            "email": "test@email",
+            "body": "test-body"
+        }
+        const update = {"body": "update test-body"}
+
+        // create mock post
+        await request(app)
+            .post('/create')
+            .send(mockPost)
+
+        // get mock post
+        const params = await request(app)
+            .get(`/get?postId=${mockPost.postId}&name=${mockPost.name}`)
+        // console.log(params.body[0]._id)
+
+        // TEST update mock post
+        await request(app)
+            .put(`/update/${params.body[0]._id}`)
             .send(update)
-            .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
-            .expect(201)
             .then(res => {
-                // console.log(res)
+                console.log(res.body)
                 expect(res.body.body).toBe(update.body)
             })
+
+        // clean mock post
+        await request(app)
+            .delete(`/delete/${params.body[0]._id}`)
     })
 })

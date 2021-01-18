@@ -12,15 +12,31 @@ describe('DELETE post /delete', () => {
         await mongoTest.disconnect();
     })
 
-    it ('res success message', async () => {
-        const _id = '60044ff3ccffad264c8439b7'
-        const urlParams = `/delete/${_id}`
-        return request(app)
-            .delete(urlParams)
-            .expect(200)
+    it ('res _id of deleted post', async () => {
+        // mock data
+        const mockPost = {
+            "postId": 900,
+            "name": "delete-test",
+            "email": "test@email",
+            "body": "test-body"
+        }
+
+        // create mock post
+        await request(app)
+            .post('/create')
+            .send(mockPost)
+
+        // get mock post
+        const params = await request(app)
+            .get(`/get?postId=${mockPost.postId}&name=${mockPost.name}`)
+        // console.log(params.body[0]._id)
+
+        // TEST delete mock post
+        await request(app)
+            .delete(`/delete/${params.body[0]._id}`)
             .then(res => {
-                // console.log(res)
-                expect(res.body._id).toBe(_id)
+                // console.log(res.body._id)
+                expect(res.body._id).toBe(params.body[0]._id)
             })
     })
 })

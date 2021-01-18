@@ -31,6 +31,7 @@ export const Update = ({ dialog, handleDialog, post }) => {
         // console.log(update)
         axios.put(`http://localhost:5000/update/${update._id}`, update)
             .then(res => {
+                // console.log(res)
                 dispatch({type: 'UPDATE', update: update})
             })
             .catch(err => {

@@ -13,12 +13,11 @@ describe('GET posts /get', () => {
     })
 
     it ('res  json', async () => {
-        return request(app)
+        // TEST get posts
+        await request(app)
             .get('/get')
-            .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
-            .expect(200)
             .then(res => {
+                console.log(res.body.length)
                 expect(res.body.length).toBeGreaterThan(0)
             })
     })
