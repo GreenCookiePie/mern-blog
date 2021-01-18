@@ -4,6 +4,7 @@ const { mongoTest } = require('../../server/database')
 
 // tests
 const request = require('supertest')
+
 describe('GET posts /get', () => {
     beforeEach(async() => {
         await mongoTest.connect();
@@ -12,7 +13,7 @@ describe('GET posts /get', () => {
         await mongoTest.disconnect();
     })
 
-    it ('res  json', async () => {
+    it ('res array of fetched json', async () => {
         // TEST get posts
         await request(app)
             .get('/get')

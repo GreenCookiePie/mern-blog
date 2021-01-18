@@ -4,6 +4,7 @@ const { mongoTest } = require('../../server/database')
 
 // tests
 const request = require('supertest')
+
 describe('UPDATE post /update', () => {
     beforeEach(async() => {
         await mongoTest.connect();
@@ -12,7 +13,7 @@ describe('UPDATE post /update', () => {
         await mongoTest.disconnect();
     })
 
-    it ('res updated json', async () => {
+    it ('res updated post in json', async () => {
         // mock data
         const mockPost = {
             "postId": 900,

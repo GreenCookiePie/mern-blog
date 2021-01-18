@@ -4,6 +4,7 @@ const { mongoTest } = require('../../server/database')
 
 // tests
 const request = require('supertest')
+
 describe('DELETE post /delete', () => {
     beforeEach(async() => {
         await mongoTest.connect();
@@ -35,7 +36,7 @@ describe('DELETE post /delete', () => {
         await request(app)
             .delete(`/delete/${params.body[0]._id}`)
             .then(res => {
-                // console.log(res.body._id)
+                console.log(res.body._id)
                 expect(res.body._id).toBe(params.body[0]._id)
             })
     })

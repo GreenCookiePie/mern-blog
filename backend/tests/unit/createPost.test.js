@@ -4,6 +4,7 @@ const { mongoTest } = require('../../server/database')
 
 // tests
 const request = require('supertest')
+
 describe('CREATE post /create', () => {
     beforeEach(async() => {
         await mongoTest.connect();
