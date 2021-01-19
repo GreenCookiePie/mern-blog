@@ -12,8 +12,17 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Response time is less than 200ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    // test\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"res created post in json\", function () {\r",
+							"    // test\r",
+							"    // console.log(request.data)\r",
+							"    pm.expect(pm.response.json().postId).to.eql(Number(request.data.postId));\r",
+							"    pm.expect(pm.response.json().name).to.eql(request.data.name);\r",
+							"    pm.expect(pm.response.json().email).to.eql(request.data.email);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -46,7 +55,12 @@
 							"value": "test-body",
 							"type": "text"
 						}
-					]
+					],
+					"options": {
+						"raw": {
+							"language": "javascript"
+						}
+					}
 				},
 				"url": {
 					"raw": "{{URL}}/create/",
@@ -69,7 +83,15 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
+							"    // test\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"res get post in json\", function () {\r",
+							"    // test\r",
+							"    // console.log(pm.request.url.query.all())\r",
+							"    pm.expect(pm.response.json()[0].postId).to.eql(Number(pm.request.url.query.all()[0].value));\r",
+							"    pm.expect(pm.response.json()[0].name).to.eql(pm.request.url.query.all()[1].value);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -115,8 +137,16 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Response time is less than 200ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    // test\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"res updated post in json\", function () {\r",
+							"    // test\r",
+							"    // console.log(request.data)\r",
+							"    pm.expect(pm.response.json()._id).to.eql(pm.request.url.path[1]);\r",
+							"    pm.expect(pm.response.json().body).to.eql(request.data.body);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -131,24 +161,19 @@
 					"urlencoded": [
 						{
 							"key": "body",
-							"value": "new test-body",
+							"value": "update test-body",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "{{URL}}/update?_id=5ffe6a9d3eee8c451ceccda9",
+					"raw": "{{URL}}/update/6004e78d537cb1498059d479",
 					"host": [
 						"{{URL}}"
 					],
 					"path": [
-						"update"
-					],
-					"query": [
-						{
-							"key": "_id",
-							"value": "5ffe6a9d3eee8c451ceccda9"
-						}
+						"update",
+						"6004e78d537cb1498059d479"
 					]
 				}
 			},
@@ -165,24 +190,37 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    // test\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"res deleted id\", function () {\r",
+							"    // test\r",
+							"    // console.log(pm.request.url.path)\r",
+							"    pm.expect(pm.response.json()._id).to.eql(pm.request.url.path[1]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{URL}}/delete?_id=5ffe6a9d3eee8c451ceccda9",
+					"raw": "{{URL}}/delete/600138b508ffb14fec1ddd7d",
 					"host": [
 						"{{URL}}"
 					],
 					"path": [
-						"delete"
-					],
-					"query": [
-						{
-							"key": "_id",
-							"value": "5ffe6a9d3eee8c451ceccda9"
-						}
+						"delete",
+						"600138b508ffb14fec1ddd7d"
 					]
 				}
 			},

@@ -1,12 +1,16 @@
-import newman from 'newman'
-import Environment from './mern-blog env.postman_environment.json'
-import Collection from './mern-blog test.postman_collection.json'
+const newman = require('newman')
+const Environment = require('./mern-blog env.postman_environment.json')
+const Collection = require('./mern-blog test.postman_collection.json')
 
-newman.run({
+newman
+.run({
     environment: Environment,
     collection: Collection,
     reporters: 'cli'
-}, (err) => {
+}, 
+(err) => {
     if (err) { throw err; }
     console.log('collection run complete!')
 })
+
+// to run: node tests/integration/newman.config.js

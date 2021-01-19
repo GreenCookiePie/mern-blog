@@ -46,4 +46,18 @@ describe('UPDATE post /update', () => {
         await request(app)
             .delete(`/delete/${params.body[0]._id}`)
     })
+
+    it ('res statusCode 407 if no post found', async () => {
+        // mock data
+        const update = {"body": "update test-body"}
+
+        // TEST update mock post
+        await request(app)
+            .put(`/update/123456`)
+            .send(update)
+            .then(res => {
+                console.log(res.statusCode)
+                expect(res.statusCode).toBe(407)
+            })
+    })
 })
