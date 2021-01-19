@@ -19,7 +19,7 @@
 							"\r",
 							"pm.test(\"res created post in json\", function () {\r",
 							"    // test\r",
-							"    // console.log(request.data)\r",
+							"    console.log(request.data)\r",
 							"    pm.expect(pm.response.json().postId).to.eql(Number(request.data.postId));\r",
 							"    pm.expect(pm.response.json().name).to.eql(request.data.name);\r",
 							"    pm.expect(pm.response.json().email).to.eql(request.data.email);\r",
@@ -37,22 +37,22 @@
 					"urlencoded": [
 						{
 							"key": "postId",
-							"value": "100",
+							"value": "{{postId}}",
 							"type": "text"
 						},
 						{
 							"key": "name",
-							"value": "test-name",
+							"value": "{{name}}",
 							"type": "text"
 						},
 						{
 							"key": "email",
-							"value": "test-email",
+							"value": "{{email}}",
 							"type": "text"
 						},
 						{
 							"key": "body",
-							"value": "test-body",
+							"value": "{{body}}",
 							"type": "text"
 						}
 					],
@@ -89,10 +89,23 @@
 							"\r",
 							"pm.test(\"res get post in json\", function () {\r",
 							"    // test\r",
-							"    // console.log(pm.request.url.query.all())\r",
+							"    console.log(pm.response.json()[0]._id)\r",
+							"    console.log(pm.request.url.query.all())\r",
 							"    pm.expect(pm.response.json()[0].postId).to.eql(Number(pm.request.url.query.all()[0].value));\r",
 							"    pm.expect(pm.response.json()[0].name).to.eql(pm.request.url.query.all()[1].value);\r",
-							"});"
+							"});\r",
+							"\r",
+							"// set _id for Update test & Delete test\r",
+							"pm.globals.set(\"test_id\", pm.response.json()[0]._id);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -109,7 +122,7 @@
 					"urlencoded": []
 				},
 				"url": {
-					"raw": "{{URL}}/get?postId=100&name=test-name",
+					"raw": "{{URL}}/get?postId={{postId}}&name={{name}}",
 					"host": [
 						"{{URL}}"
 					],
@@ -119,11 +132,11 @@
 					"query": [
 						{
 							"key": "postId",
-							"value": "100"
+							"value": "{{postId}}"
 						},
 						{
 							"key": "name",
-							"value": "test-name"
+							"value": "{{name}}"
 						}
 					]
 				}
@@ -144,10 +157,19 @@
 							"\r",
 							"pm.test(\"res updated post in json\", function () {\r",
 							"    // test\r",
-							"    // console.log(request.data)\r",
-							"    pm.expect(pm.response.json()._id).to.eql(pm.request.url.path[1]);\r",
+							"    console.log(request.data)\r",
 							"    pm.expect(pm.response.json().body).to.eql(request.data.body);\r",
+							"    pm.expect(pm.response.json()._id).to.eql(pm.request.url.path[1]);\r",
 							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -161,19 +183,19 @@
 					"urlencoded": [
 						{
 							"key": "body",
-							"value": "update test-body",
+							"value": "{{update}}",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "{{URL}}/update/6004e78d537cb1498059d479",
+					"raw": "{{URL}}/update/{{test_id}}",
 					"host": [
 						"{{URL}}"
 					],
 					"path": [
 						"update",
-						"6004e78d537cb1498059d479"
+						"{{test_id}}"
 					]
 				}
 			},
@@ -202,7 +224,7 @@
 							"\r",
 							"pm.test(\"res deleted id\", function () {\r",
 							"    // test\r",
-							"    // console.log(pm.request.url.path)\r",
+							"    console.log(pm.request.url.path)\r",
 							"    pm.expect(pm.response.json()._id).to.eql(pm.request.url.path[1]);\r",
 							"});"
 						],
@@ -214,13 +236,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{URL}}/delete/600138b508ffb14fec1ddd7d",
+					"raw": "{{URL}}/delete/{{test_id}}",
 					"host": [
 						"{{URL}}"
 					],
 					"path": [
 						"delete",
-						"600138b508ffb14fec1ddd7d"
+						"{{test_id}}"
 					]
 				}
 			},
