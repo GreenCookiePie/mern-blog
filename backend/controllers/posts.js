@@ -3,8 +3,6 @@ const Post = require('../models/postModel.js')
 exports.createPost = async (req, res) => {
     // console.log(req.body)
     try {
-        // const newPost = new Post(req.body)
-        // await newPost.save()
         const newPost = await Post.create(req.body)
         res.status(201).json(newPost)
         // console.log(res.statusCode)

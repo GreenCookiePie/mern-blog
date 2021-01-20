@@ -19,11 +19,14 @@
 							"\r",
 							"pm.test(\"res created post in json\", function () {\r",
 							"    // test\r",
-							"    console.log(request.data)\r",
+							"    console.log(request)\r",
 							"    pm.expect(pm.response.json().postId).to.eql(Number(request.data.postId));\r",
 							"    pm.expect(pm.response.json().name).to.eql(request.data.name);\r",
 							"    pm.expect(pm.response.json().email).to.eql(request.data.email);\r",
-							"});"
+							"});\r",
+							"\r",
+							"// set _id for Update test & Delete test\r",
+							"pm.globals.set(\"test_id\", pm.response.json()._id);"
 						],
 						"type": "text/javascript"
 					}
@@ -96,7 +99,7 @@
 							"});\r",
 							"\r",
 							"// set _id for Update test & Delete test\r",
-							"pm.globals.set(\"test_id\", pm.response.json()[0]._id);"
+							"// pm.globals.set(\"test_id\", pm.response.json()[0]._id);"
 						],
 						"type": "text/javascript"
 					}
