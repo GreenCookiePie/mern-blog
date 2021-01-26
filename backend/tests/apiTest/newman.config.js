@@ -13,4 +13,5 @@ newman
     console.log('collection run complete!')
 })
 
-// to run: node tests/integration/newman.config.js
+
+// to run : node tests/integration/newman.config.js

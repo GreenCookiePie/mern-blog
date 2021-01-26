@@ -6,6 +6,7 @@ exports.createPost = async (req, res) => {
         const newPost = await Post.create(req.body)
         res.status(201).json(newPost)
         // console.log(res.statusCode)
+        console.log('post created')
     }
     catch (error) {
         res.status(409).json({message: error.message})
@@ -44,6 +45,7 @@ exports.updatePost = async (req, res) => {
         const update = await Post.findByIdAndUpdate(req.params._id, req.body, {new: true})
         // console.log(update)
         res.status(201).json(update)
+        console.log('post updated')
     }
     catch (error) {
         res.status(407).json({message: error.message})
@@ -56,6 +58,7 @@ exports.deletePost = async (req, res) => {
         await Post.deleteOne(req.params)
         // console.log(req.params)
         res.status(200).json(req.params)
+        console.log('post deleted')
     }
     catch (error) {
         res.status(407).json({message: error.message})
