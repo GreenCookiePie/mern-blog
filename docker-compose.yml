@@ -17,7 +17,7 @@ services:
     depends_on:
       - database
 
-  database:
+  database: # service name
     container_name: mern-blog_database
     image: mongo
     # network_mode: host

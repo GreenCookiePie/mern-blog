@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 exports.mongoIndex = async () => await mongoose.connect('mongodb://localhost:27017/mern-blog', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
 
 // mongo docker - note: for docker BE to connect to docker DB, change 'localhost' to service name
-exports.mongoDocker = async () => await mongoose.connect('mongodb://database:27017/mongo-test')
+exports.mongoDocker = async () => await mongoose.connect('mongodb://database:27017/mern-docker')
 
 // mongo localhost test
 const connect = async () => await mongoose.connect('mongodb://localhost:27017/mern-blog-test', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
