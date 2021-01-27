@@ -2,6 +2,7 @@ services:
   frontend:
     container_name: mern-blog_frontend
     build: ./frontend
+    # network_mode: host
     ports:
       - '3000:3000'
     depends_on:
@@ -10,14 +11,16 @@ services:
   backend:
     container_name: mern-blog_backend
     build: ./backend
+    # network_mode: host
     ports:
       - '5000:5000'
     depends_on:
-      - mongo
+      - database
 
-  mongo:
+  database:
     container_name: mern-blog_database
     image: mongo
+    # network_mode: host
     ports:
-      - '27017:27017'
+      - '7000:27017'
 # to run : docker-compose up --build
