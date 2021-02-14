@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
-// const jwt = require('')
+var jwt = require('jsonwebtoken')
 
-// model
+// userModel
 const User = require('../models/userModel.js')
 
 exports.createUser = async (req, res) => {
@@ -37,9 +37,20 @@ exports.createUser = async (req, res) => {
 }
 
 exports.getUser = async (req, res) => {
-    // console.log(req.params, req.query)
+    console.log(req.query)
     try {
-        await User.findOne(req.query.email)
+        // find user
+        const user = await User.findOne({ username: req.query.username })
+        
+        if ( user ) {
+            // validate password
+            if ( await bcrypt.compare(req.query.password, user.password) )
+                res.status(200).json(req.query)
+            else
+                res.status(409).json({ errorMessage: 'incorrect Password' })
+        }
+        else
+            res.status(409).json({ errorMessage: 'User not found' })
     }
     catch (error) {
         res.status(409).json({message: error.message})

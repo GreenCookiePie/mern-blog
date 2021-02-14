@@ -1,3 +1,4 @@
+// postModel
 const Post = require('../models/postModel.js')
 
 exports.createPost = async (req, res) => {
