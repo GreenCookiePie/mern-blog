@@ -33,7 +33,7 @@ export const Posts = () => {
     }
     
     useEffect(() => {
-        axios.get(`http://localhost:5000/get?postId=${search.postId}&name=${search.name}`)
+        axios.get(`http://localhost:5000/getPosts?postId=${search.postId}&name=${search.name}`)
             .then(res => {
                 // console.log(typeof res.data)
                 dispatch({type: 'GET', posts: res.data})

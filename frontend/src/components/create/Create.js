@@ -36,7 +36,7 @@ export const Create = () => {
         e.preventDefault()
 
         // console.log(input)
-        axios.post('http://localhost:5000/create', input)
+        axios.post('http://localhost:5000/createPost', input)
             // .then(res => {
             //     dispatch({type: 'CREATE', create: input})
             // })

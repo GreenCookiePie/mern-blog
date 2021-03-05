@@ -1,11 +1,11 @@
 // test server
-const app = require('../../server/server')
+const app = require('../../server/app')
 const { mongoTest } = require('../../server/database')
 
 // tests
 const request = require('supertest')
 
-describe('CREATE post /create', () => {
+describe('CREATE post /createPost', () => {
     beforeEach(async() => {
         await mongoTest.connect();
     })
@@ -24,7 +24,7 @@ describe('CREATE post /create', () => {
 
         // TEST create mock post
         await request(app)
-            .post('/create')
+            .post('/createPost')
             .send(mockPost)
             .then(res => {
                 console.log(res.body)
@@ -33,11 +33,11 @@ describe('CREATE post /create', () => {
 
         // clean mock post
         const params = await request(app)
-            .get(`/get?postId=${mockPost.postId}&name=${mockPost.name}`)
+            .get(`/getPosts?postId=${mockPost.postId}&name=${mockPost.name}`)
         // console.log(params.body[0]._id)
 
         await request(app)
-            .delete(`/delete/${params.body[0]._id}`)
+            .delete(`/deletePost/${params.body[0]._id}`)
             .then(res => {
                 // console.log(res.body._id)
                 expect(res.body._id).toBe(params.body[0]._id)

@@ -1,11 +1,11 @@
 // test server
-const app = require('../../server/server')
+const app = require('../../server/app')
 const { mongoTest } = require('../../server/database')
 
 // tests
 const request = require('supertest')
 
-describe('UPDATE post /update', () => {
+describe('UPDATE post /updatePost', () => {
     beforeEach(async() => {
         await mongoTest.connect();
     })
@@ -25,17 +25,17 @@ describe('UPDATE post /update', () => {
 
         // create mock post
         await request(app)
-            .post('/create')
+            .post('/createPost')
             .send(mockPost)
 
         // get mock post
         const params = await request(app)
-            .get(`/get?postId=${mockPost.postId}&name=${mockPost.name}`)
+            .get(`/getPosts?postId=${mockPost.postId}&name=${mockPost.name}`)
         // console.log(params.body[0]._id)
 
         // TEST update mock post
         await request(app)
-            .put(`/update/${params.body[0]._id}`)
+            .put(`/updatePost/${params.body[0]._id}`)
             .send(update)
             .then(res => {
                 console.log(res.body)
@@ -44,7 +44,7 @@ describe('UPDATE post /update', () => {
 
         // clean mock post
         await request(app)
-            .delete(`/delete/${params.body[0]._id}`)
+            .delete(`/deletePost/${params.body[0]._id}`)
     })
 
     it ('res statusCode 407 if no post found', async () => {
@@ -53,7 +53,7 @@ describe('UPDATE post /update', () => {
 
         // TEST update mock post
         await request(app)
-            .put(`/update/123456`)
+            .put(`/updatePost/123456`)
             .send(update)
             .then(res => {
                 console.log(res.statusCode)

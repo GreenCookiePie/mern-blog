@@ -23,10 +23,9 @@ export const Post = ({ post }) => {
         setOpen(!open)
     }
 
-
     // DELETE
     const handleDelete = () => {
-        axios.delete(`http://localhost:5000/delete/${post._id}`)
+        axios.delete(`http://localhost:5000/deletePost/${post._id}`)
             .then(res => {
                 dispatch({type: 'DELETE', delete: post})
             })
