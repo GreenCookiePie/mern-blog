@@ -37,7 +37,7 @@ export const Posts = () => {
     const handleSearch = (search) => {
         axios.get(`http://localhost:5000/getPosts?postId=${search.postId}&name=${search.name}`)
             .then(res => {
-                console.log(search)
+                console.log(search, "handleSearch")
                 dispatch({type: 'GET', posts: res.data})
             })
             .catch(err => {
@@ -46,7 +46,7 @@ export const Posts = () => {
     }
     
     useEffect(() => {
-        console.log(search)
+        console.log(search, "useEffect")
         handleSearch(search)
     }, [])
 
@@ -72,7 +72,7 @@ export const Posts = () => {
                     labelWidth={70}
                 />
             </FormControl>
-            <Button variant="contained" size="large" color="primary" onClick={handleSearch(search)}>Search</Button>            
+            <Button variant="contained" size="large" color="primary" onClick={() => handleSearch(search)}>Search</Button>            
             <h6>Results Found: {posts.length}</h6>
 
             {posts.map((post) => {
