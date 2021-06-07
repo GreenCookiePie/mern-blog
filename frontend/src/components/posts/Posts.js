@@ -1,9 +1,11 @@
+/* eslint-disable */
+
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios'
 
 import clsx from 'clsx'
-import { OutlinedInput, InputLabel, FormControl } from '@material-ui/core/'
+import { OutlinedInput, InputLabel, FormControl, Button } from '@material-ui/core/'
 
 import { useStyles } from '../styles'
 import { Post } from './Post'
@@ -31,17 +33,22 @@ export const Posts = () => {
             })
         })
     }
-    
-    useEffect(() => {
+
+    const handleSearch = (search) => {
         axios.get(`http://localhost:5000/getPosts?postId=${search.postId}&name=${search.name}`)
             .then(res => {
-                // console.log(typeof res.data)
+                console.log(search)
                 dispatch({type: 'GET', posts: res.data})
             })
             .catch(err => {
                 console.log(err)
             })
-    }, [search, posts])
+    }
+    
+    useEffect(() => {
+        console.log(search)
+        handleSearch(search)
+    }, [])
 
     return (
         <div className='container'>
@@ -65,6 +72,7 @@ export const Posts = () => {
                     labelWidth={70}
                 />
             </FormControl>
+            <Button variant="contained" size="large" color="primary" onClick={handleSearch(search)}>Search</Button>            
             <h6>Results Found: {posts.length}</h6>
 
             {posts.map((post) => {
